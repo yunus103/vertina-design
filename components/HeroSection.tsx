@@ -36,9 +36,9 @@ const HeroSection = ({ data }: HeroProps) => {
   if (slides.length === 0) return null;
 
   const current = slides[currentSlide];
-
+ 
   return (
-    <header className="relative h-screen w-full overflow-hidden">
+    <header className="relative h-[100dvh] w-full overflow-hidden">
       {slides.map((slide, index) => (
         <div 
           key={index}
