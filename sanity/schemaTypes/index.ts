@@ -6,7 +6,9 @@ import { projectsType } from './projects'
 import { testimonialsType } from './testimonials'
 import { contactType } from './contact'
 import { landingPageType } from './landingPage'
+import { seoType } from './seo'
+import { footerType } from './footer'
 
 export const schema: { types: SchemaTypeDefinition[] } = {
-  types: [heroType, aboutType, servicesType, projectsType, testimonialsType, contactType, landingPageType],
+  types: [heroType, aboutType, servicesType, projectsType, testimonialsType, contactType, landingPageType, seoType, footerType],
 }

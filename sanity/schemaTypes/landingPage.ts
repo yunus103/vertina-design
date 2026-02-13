@@ -6,14 +6,32 @@ export const landingPageType = defineType({
   type: 'document',
   fields: [
     defineField({
-      name: 'title',
-      title: 'Sayfa Başlığı (SEO için)',
-      type: 'string',
+      name: 'seo',
+      title: 'SEO Ayarları',
+      type: 'seo',
     }),
     defineField({
       name: 'hero',
       title: 'Hero Bölümü',
       type: 'hero',
+    }),
+    defineField({
+      name: 'ayarlar',
+      title: 'Site Ayarları',
+      type: 'object',
+      fields: [
+        defineField({
+          name: 'logo',
+          title: 'Logo',
+          type: 'image',
+          options: { hotspot: true },
+        }),
+        defineField({
+          name: 'firmaAdi',
+          title: 'Firma Adı (Logo Yoksa Görünür)',
+          type: 'string',
+        }),
+      ]
     }),
     defineField({
       name: 'hakkimizda',
@@ -39,6 +57,11 @@ export const landingPageType = defineType({
       name: 'iletisim',
       title: 'İletişim Bölümü',
       type: 'iletisim',
+    }),
+    defineField({
+      name: 'footer',
+      title: 'Footer (Alt Bilgi)',
+      type: 'footer',
     }),
   ],
 })

@@ -2,8 +2,17 @@
 
 import Link from 'next/link';
 import React, { useState, useEffect } from 'react';
+import { urlForImage } from '@/sanity/lib/image';
+import Image from 'next/image';
 
-const Navbar = () => {
+interface NavbarProps {
+  settings?: {
+    logo?: any;
+    firmaAdi?: string;
+  };
+}
+
+const Navbar = ({ settings }: NavbarProps) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -28,7 +37,21 @@ const Navbar = () => {
     <nav className={`${navBaseClass} ${scrolledClass} justify-between px-6 md:px-12`}>
       <div className="flex items-center relative z-50">
         <Link href="/" onClick={() => setIsMobileMenuOpen(false)}>
-          <span className={`text-3xl md:text-4xl font-display tracking-tighter font-extrabold hover:opacity-80 transition-opacity ${isMobileMenuOpen ? 'text-brandRed' : 'text-brandRed'}`}>Vetrina</span>
+          {settings?.logo ? (
+             <div className="relative w-32 h-10 md:w-40 md:h-12">
+               <Image 
+                 src={urlForImage(settings.logo).url()} 
+                 alt={settings.firmaAdi || 'Logo'} 
+                 fill 
+                 className="object-contain"
+                 priority
+               />
+             </div>
+          ) : (
+            <span className={`text-3xl md:text-4xl font-display tracking-tighter font-extrabold hover:opacity-80 transition-opacity ${isMobileMenuOpen ? 'text-brandRed' : 'text-brandRed'}`}>
+              {settings?.firmaAdi || 'Vetrina'}
+            </span>
+          )}
         </Link>
       </div>
 

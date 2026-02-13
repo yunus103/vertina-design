@@ -9,6 +9,10 @@ import ContactSection from "@/components/ContactSection";
 // Query to fetch landing page data
 const LANDING_PAGE_QUERY = `
   *[_type == "landingPage"][0] {
+    ayarlar {
+      firmaAdi,
+      logo { asset->, altMetin }
+    },
     hero {
       slider[] {
         ...,

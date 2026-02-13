@@ -13,16 +13,69 @@ const playfair = Playfair_Display({
   variable: "--font-playfair-display",
 });
 
-export const metadata: Metadata = {
-  title: "Vertina Design | Premium Furniture & Interior",
-  description: "Crafting timeless environments through bespoke furniture design and thoughtful interior curation since 2012.",
-};
+// Import sanity client
+import { client } from "@/sanity/lib/client";
+import { urlForImage } from "@/sanity/lib/image";
 
-export default function RootLayout({
+const SETTINGS_QUERY = `
+  *[_type == "landingPage"][0] {
+    seo {
+      baslik,
+      aciklama,
+      favicon { asset-> },
+      socialImage { asset-> }
+    },
+    ayarlar {
+      firmaAdi,
+      logo { asset->, altMetin }
+    },
+    footer {
+      logo { asset->, altMetin },
+      aciklama,
+      sosyalMedya[],
+      iletisimBilgileri,
+      copyright
+    }
+  }
+`;
+
+export async function generateMetadata(): Promise<Metadata> {
+  try {
+    const data = await client.fetch(SETTINGS_QUERY);
+    const seo = data?.seo;
+    
+    return {
+      title: seo?.baslik || "Vetrina Design | Ofis Yaşam Alanları",
+      description: seo?.aciklama || "Ofis yaşam alanları tasarlıyoruz.",
+      icons: seo?.favicon ? { icon: urlForImage(seo.favicon).width(32).height(32).url() } : undefined,
+      openGraph: seo?.socialImage ? {
+        images: [urlForImage(seo.socialImage).width(1200).height(630).url()],
+      } : undefined,
+    };
+  } catch (error) {
+    return {
+      title: "Vetrina Design",
+      description: "Ofis yaşam alanları tasarlıyoruz.",
+    };
+  }
+}
+
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  let settings = null;
+  let footerData = null;
+  
+  try {
+    const data = await client.fetch(SETTINGS_QUERY);
+    settings = data?.ayarlar;
+    footerData = data?.footer;
+  } catch (error) {
+    console.error("Layout settings fetch error:", error);
+  }
+
   return (
     <html lang="tr" className="scroll-smooth">
       <head>
@@ -36,7 +89,7 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${playfair.variable} antialiased font-body bg-backgroundLight dark:bg-backgroundDark text-primary dark:text-gray-200 transition-colors duration-300 overflow-x-hidden`}
       >
-        <LayoutWrapper>
+        <LayoutWrapper settings={settings} footerData={footerData}>
           {children}
         </LayoutWrapper>
       </body>

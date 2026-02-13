@@ -1,60 +1,108 @@
 import Link from 'next/link';
 import React from 'react';
+import Image from 'next/image';
+import { urlForImage } from '@/sanity/lib/image';
 
-const Footer = () => {
+interface FooterProps {
+  data?: {
+    logo?: any;
+    aciklama?: string;
+    sosyalMedya?: { platform: string; url: string }[];
+    iletisimBilgileri?: {
+      adres?: string;
+      telefon?: string;
+      email?: string;
+    };
+    copyright?: string;
+  };
+}
+
+const getSocialIcon = (platform: string) => {
+  const p = platform.toLowerCase();
+  if (p.includes('instagram')) return 'photo_camera';
+  if (p.includes('twitter') || p.includes('x')) return 'alternate_email';
+  if (p.includes('linkedin')) return 'work';
+  if (p.includes('facebook')) return 'public';
+  return 'link';
+};
+
+const Footer = ({ data }: FooterProps) => {
+  const instagramLink = data?.sosyalMedya?.find(s => s.platform.toLowerCase().includes('instagram'))?.url;
+
   return (
-    <footer className="bg-primary dark:bg-black text-white py-24 px-12 md:px-24">
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-16 md:gap-8">
-        <div className="space-y-8">
-          <span className="text-4xl font-display tracking-tighter block text-brandRed font-extrabold">V</span>
-          <p className="text-xs text-gray-400 leading-loose max-w-xs">
-            Crafting timeless environments through bespoke furniture design and thoughtful interior curation since 2012.
+    <footer className="bg-primary text-white py-16 px-6 md:px-12 border-t border-white/10">
+      <div className="flex flex-col md:flex-row justify-between items-start gap-12">
+        
+        {/* Brand & Description */}
+        <div className="flex flex-col items-center md:items-start gap-6 text-center md:text-left basis-1/3">
+          {data?.logo ? (
+             <div className="relative w-48 h-20">
+               <Image 
+                 src={urlForImage(data.logo).url()} 
+                 alt="Footer Logo" 
+                 fill 
+                 className="object-contain object-left"
+               />
+             </div>
+          ) : (
+             <span className="text-3xl font-display tracking-tighter block text-white font-extrabold">Vetrina</span>
+          )}
+          
+          <p className="text-xs text-white/80 max-w-sm leading-relaxed">
+            {data?.aciklama || "27 yıllık tecrübemizle hayalinizdeki çalışma alanlarını imalathanemizde gerçeğe dönüştürüyoruz."}
           </p>
-          <div className="flex gap-4">
-            <Link href="#" className="text-gray-400 hover:text-white transition-colors"><span className="material-symbols-outlined text-xl">public</span></Link>
-            <Link href="#" className="text-gray-400 hover:text-white transition-colors"><span className="material-symbols-outlined text-xl">photo_camera</span></Link>
-            <Link href="#" className="text-gray-400 hover:text-white transition-colors"><span className="material-symbols-outlined text-xl">alternate_email</span></Link>
+        </div>
+
+        {/* Middle Section: Follow Us / Instagram Special */}
+        <div className="flex flex-col items-center md:items-start gap-4 basis-1/3">
+          <h4 className="text-[10px] tracking-[0.3em] uppercase font-bold text-white/50">Bizi takip edin</h4>
+          {instagramLink ? (
+            <a 
+              href={instagramLink} 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="flex items-center gap-3 group transition-all"
+            >
+              <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-white/20 transition-all">
+                <span className="material-symbols-outlined text-white/70 group-hover:text-white text-2xl">photo_camera</span>
+              </div>
+              <span className="text-sm font-medium tracking-wide text-white/80 group-hover:text-white">Instagram</span>
+            </a>
+          ) : (
+            <div className="flex gap-4">
+              {data?.sosyalMedya?.map((item, index) => (
+                <a 
+                  key={index} 
+                  href={item.url} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-all group"
+                  title={item.platform}
+                >
+                  <span className="material-symbols-outlined text-white/70 group-hover:text-white text-lg">
+                    {getSocialIcon(item.platform)}
+                  </span>
+                </a>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* Links */}
+        <div className="flex flex-col items-center md:items-end gap-6 basis-1/3">
+          <h4 className="text-[10px] tracking-[0.3em] uppercase font-bold text-white/50">Hızlı Menü</h4>
+          <div className="flex gap-8 text-xs tracking-widest uppercase text-white/70 font-medium">
+            <Link href="/" className="hover:text-white transition-colors">Ana Sayfa</Link>
+            <Link href="#hizmetlerimiz" className="hover:text-white transition-colors">Hizmetlerimiz</Link>
+            <Link href="#projeler" className="hover:text-white transition-colors">Projeler</Link>
+            <Link href="#contact" className="hover:text-white transition-colors">İletişim</Link>
           </div>
         </div>
-        <div className="space-y-6">
-          <h4 className="text-[10px] tracking-[0.3em] uppercase font-bold text-gray-500">Navigation</h4>
-          <ul className="space-y-4 text-sm font-light">
-            <li><Link href="#" className="hover:text-accent-wood transition-colors">Our Stories</Link></li>
-            <li><Link href="#" className="hover:text-accent-wood transition-colors">Collection</Link></li>
-            <li><Link href="#" className="hover:text-accent-wood transition-colors">Design Lab</Link></li>
-            <li><Link href="#" className="hover:text-accent-wood transition-colors">Sustainability</Link></li>
-          </ul>
-        </div>
-        <div className="space-y-6">
-          <h4 className="text-[10px] tracking-[0.3em] uppercase font-bold text-gray-500">Legal</h4>
-          <ul className="space-y-4 text-sm font-light">
-            <li><Link href="#" className="hover:text-accent-wood transition-colors">Terms of Service</Link></li>
-            <li><Link href="#" className="hover:text-accent-wood transition-colors">Privacy Policy</Link></li>
-            <li><Link href="#" className="hover:text-accent-wood transition-colors">Return Policy</Link></li>
-            <li><Link href="#" className="hover:text-accent-wood transition-colors">Shipping Info</Link></li>
-          </ul>
-        </div>
-        <div className="space-y-6">
-          <h4 className="text-[10px] tracking-[0.3em] uppercase font-bold text-gray-500">Visit Us</h4>
-          <p className="text-sm font-light leading-relaxed text-gray-400">
-            284 Minimalist Lane<br />
-            Copenhagen, Denmark<br />
-            DK-2300
-          </p>
-          <p className="text-sm font-light text-gray-400">
-            +45 20 30 40 50<br />
-            studio@vertina.design
-          </p>
-        </div>
+
       </div>
-      <div className="mt-24 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4">
-        <p className="text-[10px] tracking-widest text-gray-500 uppercase">© 2024 Vertina Design. All rights reserved.</p>
-        <div className="flex gap-8 text-[10px] tracking-widest text-gray-500 uppercase">
-          <span>London</span>
-          <span>Oslo</span>
-          <span>Berlin</span>
-          <span>Istanbul</span>
-        </div>
+
+      <div className="mt-16 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] text-white/40 uppercase tracking-widest">
+        <p>{data?.copyright || "© 2026 Vertina Design. Tüm hakları saklıdır."}</p>
       </div>
     </footer>
   );
