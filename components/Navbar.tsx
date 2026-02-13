@@ -24,21 +24,29 @@ const Navbar = ({ settings }: NavbarProps) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navBaseClass = "fixed top-0 left-0 w-full z-50 px-8 py-6 flex justify-between items-center transition-all duration-500 ease-in-out";
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+  }, [isMobileMenuOpen]);
+
+  const navBaseClass = "fixed top-0 left-0 w-full z-50 px-6 md:px-8 py-4 md:py-6 flex justify-between items-center transition-all duration-500 ease-in-out";
   const scrolledClass = isScrolled 
-    ? "bg-white/80 dark:bg-black/80 backdrop-blur-md py-4 shadow-sm" 
-    : "bg-transparent py-6";
+    ? "bg-white/95 dark:bg-black/95 backdrop-blur-md py-3 md:py-4 shadow-sm" 
+    : "bg-transparent py-4 md:py-6";
 
   const textClass = isScrolled
     ? "text-primary dark:text-white"
-    : "text-white"; // Assuming Hero is dark as per design
+    : "text-white"; 
 
   return (
-    <nav className={`${navBaseClass} ${scrolledClass} justify-between px-6 md:px-12`}>
-      <div className="flex items-center relative z-50">
+    <nav className={`${navBaseClass} ${scrolledClass}`}>
+      <div className="flex items-center relative z-[70]">
         <Link href="/" onClick={() => setIsMobileMenuOpen(false)}>
           {settings?.logo ? (
-             <div className="relative w-32 h-10 md:w-40 md:h-12">
+             <div className="relative w-28 h-8 md:w-40 md:h-12">
                <Image 
                  src={urlForImage(settings.logo).url()} 
                  alt={settings.firmaAdi || 'Logo'} 
@@ -48,9 +56,9 @@ const Navbar = ({ settings }: NavbarProps) => {
                />
              </div>
           ) : (
-            <span className={`text-3xl md:text-4xl font-display tracking-tighter font-extrabold hover:opacity-80 transition-opacity ${isMobileMenuOpen ? 'text-brandRed' : 'text-brandRed'}`}>
-              {settings?.firmaAdi || 'Vetrina'}
-            </span>
+             <span className={`text-2xl md:text-3xl font-display tracking-tighter font-extrabold hover:opacity-80 transition-opacity ${isMobileMenuOpen ? 'text-primary dark:text-white' : 'text-brandRed'}`}>
+               {settings?.firmaAdi || 'Vetrina'}
+             </span>
           )}
         </Link>
       </div>
@@ -65,17 +73,17 @@ const Navbar = ({ settings }: NavbarProps) => {
 
       {/* Mobile Menu Button */}
       <button 
-        className="md:hidden relative z-50 w-10 h-10 flex items-center justify-center"
+        className="md:hidden relative z-[70] w-10 h-10 flex items-center justify-center"
         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
       >
-        <span className={`material-symbols-outlined text-3xl transition-colors duration-300 ${isMobileMenuOpen ? 'text-black dark:text-white' : textClass.split(' ')[0]}`}>
+        <span className={`material-symbols-outlined text-3xl transition-colors duration-300 ${isMobileMenuOpen ? 'text-primary dark:text-white' : textClass.split(' ')[0]}`}>
           {isMobileMenuOpen ? 'close' : 'menu'}
         </span>
       </button>
 
       {/* Mobile Menu Overlay */}
-      <div className={`fixed inset-0 bg-backgroundLight dark:bg-backgroundDark z-40 flex flex-col items-center justify-center transition-transform duration-500 ease-in-out ${isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}>
-        <div className="flex flex-col gap-8 text-center text-xl tracking-[0.1em] uppercase font-display font-medium text-primary dark:text-white">
+      <div className={`fixed inset-0 h-[100dvh] bg-backgroundLight dark:bg-backgroundDark z-[60] flex flex-col items-center justify-center transition-transform duration-500 ease-in-out ${isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+        <div className="flex flex-col gap-8 text-center text-2xl tracking-[0.1em] uppercase font-display font-medium text-primary dark:text-white">
           <Link href="#" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-brandRed transition-colors">Ana Sayfa</Link>
           <Link href="#hizmetlerimiz" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-brandRed transition-colors">Hizmetlerimiz</Link>
           <Link href="#projeler" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-brandRed transition-colors">Projeler</Link>

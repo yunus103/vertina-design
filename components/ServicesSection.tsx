@@ -19,11 +19,11 @@ const ServicesSection = ({ data }: ServicesProps) => {
   if (!data) return null;
 
   return (
-    <section id="hizmetlerimiz" className="py-32 px-12 md:px-24 bg-backgroundLight dark:bg-zinc-900 border-t border-gray-100 dark:border-zinc-800">
-      <div className="mb-24 text-center md:text-left">
-        <h2 className="font-display text-6xl md:text-8xl tracking-tight">{data.baslik}</h2>
+    <section id="hizmetlerimiz" className="py-16 md:py-32 px-6 md:px-24 bg-backgroundLight dark:bg-zinc-900 border-t border-gray-100 dark:border-zinc-800">
+      <div className="mb-12 md:mb-24 text-center md:text-left">
+        <h2 className="font-display text-4xl md:text-8xl tracking-tight">{data.baslik}</h2>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-16">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-16">
         {data.liste?.map((service, index) => (
           <div key={index} className="space-y-6 group">
             <div className="relative w-full h-64 mb-6 overflow-hidden rounded-sm group-hover:shadow-lg transition-all duration-500">

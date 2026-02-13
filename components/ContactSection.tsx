@@ -18,8 +18,8 @@ const ContactSection = ({ data }: ContactProps) => {
   if (!data) return null;
 
   return (
-    <section id="contact" className="grid grid-cols-1 md:grid-cols-2 min-h-[500px]">
-      <div className="relative overflow-hidden flex flex-col justify-center px-12 md:px-20 py-16">
+    <section id="contact" className="grid grid-cols-1 md:grid-cols-2 min-h-[auto] md:min-h-[500px]">
+      <div className="relative overflow-hidden flex flex-col justify-center px-6 py-12 md:px-20 md:py-16">
         {data.gorsel && (
              <Image
              src={urlForImage(data.gorsel).url()}
@@ -29,39 +29,39 @@ const ContactSection = ({ data }: ContactProps) => {
            />
         )}
         <div className="absolute inset-0 bg-black/40"></div>
-        <div className="relative z-10 text-white space-y-10">
+        <div className="relative z-10 text-white space-y-8 md:space-y-10">
           <div>
             {data.etiket && <span className="text-[10px] tracking-[0.4em] uppercase opacity-70 mb-2 block">{data.etiket}</span>}
-            <h2 className="font-display text-4xl md:text-5xl">{data.baslik}</h2>
+            <h2 className="font-display text-3xl md:text-5xl">{data.baslik}</h2>
           </div>
-          <div className="space-y-8">
-            <div className="flex items-start gap-6 group">
+          <div className="space-y-6 md:space-y-8">
+            <div className="flex items-start gap-4 md:gap-6 group">
               <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center flex-shrink-0 group-hover:bg-white/20 transition-all">
                 <span className="material-symbols-outlined text-white text-xl">location_on</span>
               </div>
               <div>
                 <span className="text-[9px] tracking-widest uppercase opacity-50 block mb-1">Studio Address</span>
-                <p className="text-lg font-medium tracking-wide whitespace-pre-line">{data.adres}</p>
+                <p className="text-base md:text-lg font-medium tracking-wide whitespace-pre-line">{data.adres}</p>
               </div>
             </div>
-            <div className="flex items-start gap-6 group">
+            <div className="flex items-start gap-4 md:gap-6 group">
               <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center flex-shrink-0 group-hover:bg-white/20 transition-all">
                 <span className="material-symbols-outlined text-white text-xl">mail</span>
               </div>
               <div>
                 <span className="text-[9px] tracking-widest uppercase opacity-50 block mb-1">Email Us</span>
-                 <p className="text-lg font-medium tracking-wide">
+                 <p className="text-base md:text-lg font-medium tracking-wide">
                     <a href={`mailto:${data.eposta}`} className="hover:opacity-80 transition-opacity">{data.eposta}</a>
                 </p>
               </div>
             </div>
-             <div className="flex items-start gap-6 group">
+             <div className="flex items-start gap-4 md:gap-6 group">
               <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center flex-shrink-0 group-hover:bg-white/20 transition-all">
                 <span className="material-symbols-outlined text-white text-xl">call</span>
               </div>
               <div>
                 <span className="text-[9px] tracking-widest uppercase opacity-50 block mb-1">Call Us</span>
-                <p className="text-lg font-medium tracking-wide">
+                <p className="text-base md:text-lg font-medium tracking-wide">
                     <a href={`tel:${data.telefon}`} className="hover:opacity-80 transition-opacity">{data.telefon}</a>
                 </p>
               </div>
@@ -69,10 +69,10 @@ const ContactSection = ({ data }: ContactProps) => {
           </div>
         </div>
       </div>
-      <div className="bg-white dark:bg-zinc-900 flex items-center px-12 md:px-20 py-16">
+      <div className="bg-white dark:bg-zinc-900 flex items-center px-6 py-12 md:px-20 md:py-16">
         <div className="w-full max-w-md mx-auto">
-          <form className="space-y-8">
-            <div className="grid grid-cols-2 gap-6">
+          <form className="space-y-6 md:space-y-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="relative">
                 <input type="text" placeholder="NAME" className="w-full bg-transparent border-0 border-b border-gray-200 dark:border-gray-700 py-3 px-0 focus:ring-0 focus:border-brandRed transition-colors placeholder:text-gray-400 placeholder:text-[10px] placeholder:tracking-widest uppercase text-sm" />
               </div>
