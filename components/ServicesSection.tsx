@@ -1,8 +1,10 @@
+import { urlForImage } from '@/sanity/lib/image';
+import Image from 'next/image';
 import React from 'react';
 
 interface ServiceItem {
   baslik: string;
-  ikon?: string;
+  gorsel?: any;
   aciklama: string;
 }
 
@@ -17,14 +19,23 @@ const ServicesSection = ({ data }: ServicesProps) => {
   if (!data) return null;
 
   return (
-    <section id="hizmetlerimiz" className="py-32 px-12 md:px-24 bg-background-light dark:bg-zinc-900">
+    <section id="hizmetlerimiz" className="py-32 px-12 md:px-24 bg-backgroundLight dark:bg-zinc-900 border-t border-gray-100 dark:border-zinc-800">
       <div className="mb-24 text-center md:text-left">
         <h2 className="font-display text-6xl md:text-8xl tracking-tight">{data.baslik}</h2>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-16">
         {data.liste?.map((service, index) => (
           <div key={index} className="space-y-6 group">
-            <span className="material-symbols-outlined text-4xl text-accent-wood">{service.ikon || 'circle'}</span>
+            <div className="relative w-full h-64 mb-6 overflow-hidden rounded-sm group-hover:shadow-lg transition-all duration-500">
+              {service.gorsel && (
+                <Image 
+                  src={urlForImage(service.gorsel).url()}
+                  alt={service.baslik}
+                  fill
+                  className="object-cover transition-transform duration-700 transform group-hover:scale-105"
+                />
+              )}
+            </div>
             <h3 className="font-display text-2xl uppercase tracking-wider">{service.baslik}</h3>
             <p className="text-gray-500 dark:text-gray-400 text-sm leading-relaxed border-l border-gray-200 dark:border-gray-800 pl-6">
               {service.aciklama}

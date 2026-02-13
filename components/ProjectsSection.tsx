@@ -27,9 +27,6 @@ const ProjectsSection = ({ data }: ProjectsProps) => {
           {data.etiket && <span className="text-[10px] tracking-[0.3em] uppercase opacity-60 mb-4 block">{data.etiket}</span>}
           <h2 className="font-display text-5xl">{data.baslik}</h2>
         </div>
-        <Link href="#" className="border-b border-primary dark:border-gray-400 pb-1 text-sm uppercase tracking-widest hover:opacity-50 transition-all">
-          View Archive
-        </Link>
       </div>
       
       <div className="masonry-grid px-12 md:px-24">

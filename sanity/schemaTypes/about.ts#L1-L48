@@ -17,13 +17,13 @@ export const heroType = defineType({
           fields: [
             defineField({
               name: 'baslik',
-              title: 'Başlık',
+              title: 'Ana Başlık',
               type: 'string',
               validation: (Rule) => Rule.required(),
             }),
             defineField({
               name: 'altBaslik',
-              title: 'Alt Başlık (Outline Efektli)',
+              title: 'Alt Başlık Metni (Boyalı Kısım)',
               type: 'string',
             }),
             defineField({

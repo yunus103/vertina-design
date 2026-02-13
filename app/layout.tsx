@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
-// Material Symbols are imported in globals.css
+import LayoutWrapper from "@/components/LayoutWrapper";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -17,9 +17,6 @@ export const metadata: Metadata = {
   title: "Vertina Design | Premium Furniture & Interior",
   description: "Crafting timeless environments through bespoke furniture design and thoughtful interior curation since 2012.",
 };
-
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 
 export default function RootLayout({
   children,
@@ -39,9 +36,9 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${playfair.variable} antialiased font-body bg-backgroundLight dark:bg-backgroundDark text-primary dark:text-gray-200 transition-colors duration-300 overflow-x-hidden`}
       >
-        <Navbar />
-        {children}
-        <Footer />
+        <LayoutWrapper>
+          {children}
+        </LayoutWrapper>
       </body>
     </html>
   );

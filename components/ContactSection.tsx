@@ -25,7 +25,7 @@ const ContactSection = ({ data }: ContactProps) => {
              src={urlForImage(data.gorsel).url()}
              alt={data.gorsel.altMetin || 'Contact Image'}
              fill
-             className="object-cover brightness-[0.3]"
+             className="object-cover brightness-[0.9]"
            />
         )}
         <div className="absolute inset-0 bg-black/40"></div>

@@ -10,14 +10,18 @@ import ContactSection from "@/components/ContactSection";
 const LANDING_PAGE_QUERY = `
   *[_type == "landingPage"][0] {
     hero {
-      ...,
-      gorsel { asset->, altMetin }
+      slider[] {
+        ...,
+        gorsel { asset->, altMetin }
+      }
     },
-    hakkimizda {
+    hizmetlerimiz {
       ...,
-      gorsel { asset->, altMetin }
+      liste[] {
+        ...,
+        gorsel { asset->, altMetin }
+      }
     },
-    hizmetlerimiz,
     projeler {
       ...,
       liste[] {
@@ -42,7 +46,6 @@ export default async function Home() {
     data = await client.fetch(LANDING_PAGE_QUERY);
   } catch (error) {
     console.error("Sanity fetch error:", error);
-    // Continue with null data
   }
 
   if (!data) {
@@ -56,9 +59,9 @@ export default async function Home() {
   }
 
   return (
-    <main className="min-h-screen bg-background-light dark:bg-background-dark">
+    <main className="min-h-screen bg-backgroundLight dark:bg-backgroundDark">
       <HeroSection data={data.hero} />
-      <AboutSection data={data.hakkimizda} />
+      {/* <AboutSection data={data.hakkimizda} /> */}
       <ServicesSection data={data.hizmetlerimiz} />
       <ProjectsSection data={data.projeler} />
       <TestimonialsSection data={data.referanslar} />

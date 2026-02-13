@@ -26,11 +26,11 @@ export const servicesType = defineType({
               title: 'Hizmet Başlığı',
               type: 'string',
             }),
-             defineField({
-              name: 'ikon',
-              title: 'İkon Adı (Material Symbols)',
-              type: 'string',
-              description: 'Örn: architecture, format_paint, hardware'
+            defineField({
+              name: 'gorsel',
+              title: 'Hizmet Görseli',
+              type: 'image',
+              options: { hotspot: true },
             }),
             defineField({
               name: 'aciklama',
