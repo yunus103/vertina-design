@@ -6,6 +6,8 @@ import Navbar from './Navbar';
 import Footer from './Footer';
 import SmoothScroll from './SmoothScroll';
 
+import { Toaster } from 'sonner';
+
 interface LayoutWrapperProps {
   children: React.ReactNode;
   settings?: any;
@@ -19,6 +21,7 @@ const LayoutWrapper = ({ children, settings, footerData }: LayoutWrapperProps) =
 
   return (
     <>
+      <Toaster position="top-center" richColors />
       {isStudio ? (
         children
       ) : (

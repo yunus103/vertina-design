@@ -1,7 +1,13 @@
+'use client';
+
 import { urlForImage } from '@/sanity/lib/image';
 import Image from 'next/image';
-import Link from 'next/link';
-import React from 'react';
+import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { contactSchema, ContactFormData } from '@/lib/schemas/contact';
+import { sendContactEmail } from '@/app/actions/contact';
+import { toast } from 'sonner';
 
 interface ContactProps {
   data: {
@@ -15,7 +21,36 @@ interface ContactProps {
 }
 
 const ContactSection = ({ data }: ContactProps) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<ContactFormData>({
+    resolver: zodResolver(contactSchema),
+  });
+
   if (!data) return null;
+
+  const onSubmit = async (formData: ContactFormData) => {
+    setIsSubmitting(true);
+    try {
+      const result = await sendContactEmail(formData);
+      
+      if (result.success) {
+        toast.success("Mesajınız başarıyla gönderildi! Sizinle en kısa sürede iletişime geçeceğiz.");
+        reset();
+      } else {
+        toast.error(result.error || "Mesaj gönderilemedi. Lütfen daha sonra tekrar deneyin.");
+      }
+    } catch (error) {
+      toast.error("Beklenmedik bir hata oluştu. Lütfen tekrar deneyin.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <section id="contact" className="grid grid-cols-1 md:grid-cols-2 min-h-[auto] md:min-h-[500px] scroll-mt-20">
@@ -23,7 +58,7 @@ const ContactSection = ({ data }: ContactProps) => {
         {data.gorsel && (
              <Image
              src={urlForImage(data.gorsel).url()}
-             alt={data.gorsel.altMetin || 'Contact Image'}
+             alt={data.gorsel.altMetin || 'İletişim Görseli'}
              fill
              className="object-cover brightness-[0.9]"
            />
@@ -40,7 +75,7 @@ const ContactSection = ({ data }: ContactProps) => {
                 <span className="material-symbols-outlined text-white text-xl">location_on</span>
               </div>
               <div>
-                <span className="text-[9px] tracking-widest uppercase opacity-50 block mb-1">Studio Address</span>
+                <span className="text-[9px] tracking-widest uppercase opacity-50 block mb-1">Stüdyo Adresi</span>
                 <p className="text-base md:text-lg font-medium tracking-wide whitespace-pre-line">{data.adres}</p>
               </div>
             </div>
@@ -49,7 +84,7 @@ const ContactSection = ({ data }: ContactProps) => {
                 <span className="material-symbols-outlined text-white text-xl">mail</span>
               </div>
               <div>
-                <span className="text-[9px] tracking-widest uppercase opacity-50 block mb-1">Email Us</span>
+                <span className="text-[9px] tracking-widest uppercase opacity-50 block mb-1">E-posta</span>
                  <p className="text-base md:text-lg font-medium tracking-wide">
                     <a href={`mailto:${data.eposta}`} className="hover:opacity-80 transition-opacity">{data.eposta}</a>
                 </p>
@@ -60,7 +95,7 @@ const ContactSection = ({ data }: ContactProps) => {
                 <span className="material-symbols-outlined text-white text-xl">call</span>
               </div>
               <div>
-                <span className="text-[9px] tracking-widest uppercase opacity-50 block mb-1">Call Us</span>
+                <span className="text-[9px] tracking-widest uppercase opacity-50 block mb-1">Telefon</span>
                 <p className="text-base md:text-lg font-medium tracking-wide">
                     <a href={`tel:${data.telefon}`} className="hover:opacity-80 transition-opacity">{data.telefon}</a>
                 </p>
@@ -71,25 +106,53 @@ const ContactSection = ({ data }: ContactProps) => {
       </div>
       <div className="bg-white dark:bg-zinc-900 flex items-center px-6 py-12 md:px-20 md:py-16">
         <div className="w-full max-w-md mx-auto">
-          <form className="space-y-6 md:space-y-8">
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 md:space-y-8">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="relative">
-                <input type="text" placeholder="NAME" className="w-full bg-transparent border-0 border-b border-gray-200 dark:border-gray-700 py-3 px-0 focus:ring-0 focus:border-brandRed transition-colors placeholder:text-gray-400 placeholder:text-[10px] placeholder:tracking-widest uppercase text-sm" />
+                <input 
+                  type="text" 
+                  placeholder="ADINIZ" 
+                  {...register("name")}
+                  className={`w-full bg-transparent border-0 border-b ${errors.name ? 'border-red-500' : 'border-gray-200 dark:border-gray-700'} py-3 px-0 focus:ring-0 focus:border-brandRed transition-colors placeholder:text-gray-400 placeholder:text-[10px] placeholder:tracking-widest uppercase text-sm`} 
+                />
+                {errors.name && <span className="text-[10px] text-red-500 mt-1 uppercase tracking-tighter italic">{errors.name.message}</span>}
               </div>
               <div className="relative">
-                <input type="text" placeholder="SURNAME" className="w-full bg-transparent border-0 border-b border-gray-200 dark:border-gray-700 py-3 px-0 focus:ring-0 focus:border-brandRed transition-colors placeholder:text-gray-400 placeholder:text-[10px] placeholder:tracking-widest uppercase text-sm" />
+                <input 
+                  type="text" 
+                  placeholder="SOYADINIZ" 
+                  {...register("surname")}
+                  className={`w-full bg-transparent border-0 border-b ${errors.surname ? 'border-red-500' : 'border-gray-200 dark:border-gray-700'} py-3 px-0 focus:ring-0 focus:border-brandRed transition-colors placeholder:text-gray-400 placeholder:text-[10px] placeholder:tracking-widest uppercase text-sm`} 
+                />
+                {errors.surname && <span className="text-[10px] text-red-500 mt-1 uppercase tracking-tighter italic">{errors.surname.message}</span>}
               </div>
             </div>
             <div className="relative">
-              <input type="email" placeholder="EMAIL ADDRESS" className="w-full bg-transparent border-0 border-b border-gray-200 dark:border-gray-700 py-3 px-0 focus:ring-0 focus:border-brandRed transition-colors placeholder:text-gray-400 placeholder:text-[10px] placeholder:tracking-widest uppercase text-sm" />
+              <input 
+                type="email" 
+                placeholder="E-POSTA ADRESİNİZ" 
+                {...register("email")}
+                className={`w-full bg-transparent border-0 border-b ${errors.email ? 'border-red-500' : 'border-gray-200 dark:border-gray-700'} py-3 px-0 focus:ring-0 focus:border-brandRed transition-colors placeholder:text-gray-400 placeholder:text-[10px] placeholder:tracking-widest uppercase text-sm`} 
+              />
+              {errors.email && <span className="text-[10px] text-red-500 mt-1 uppercase tracking-tighter italic">{errors.email.message}</span>}
             </div>
             <div className="relative">
-              <textarea rows={3} placeholder="YOUR MESSAGE" className="w-full bg-transparent border-0 border-b border-gray-200 dark:border-gray-700 py-3 px-0 focus:ring-0 focus:border-brandRed transition-colors placeholder:text-gray-400 placeholder:text-[10px] placeholder:tracking-widest uppercase text-sm resize-none"></textarea>
+              <textarea 
+                rows={3} 
+                placeholder="MESAJINIZ" 
+                {...register("message")}
+                className={`w-full bg-transparent border-0 border-b ${errors.message ? 'border-red-500' : 'border-gray-200 dark:border-gray-700'} py-3 px-0 focus:ring-0 focus:border-brandRed transition-colors placeholder:text-gray-400 placeholder:text-[10px] placeholder:tracking-widest uppercase text-sm resize-none`}
+              ></textarea>
+              {errors.message && <span className="text-[10px] text-red-500 mt-1 uppercase tracking-tighter italic">{errors.message.message}</span>}
             </div>
             <div className="pt-4">
-              <button type="submit" className="w-full group flex items-center justify-between bg-primary text-white dark:bg-white dark:text-black px-6 py-4 uppercase text-[10px] tracking-[0.3em] font-medium hover:bg-brandRed hover:text-white transition-all">
-                <span>Send Message</span>
-                <span className="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">east</span>
+              <button 
+                type="submit" 
+                disabled={isSubmitting}
+                className="w-full group flex items-center justify-between bg-primary text-white dark:bg-white dark:text-black px-6 py-4 uppercase text-[10px] tracking-[0.3em] font-medium hover:bg-brandRed hover:text-white transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                <span>{isSubmitting ? 'GÖNDERİLİYOR...' : 'MESAJ GÖNDER'}</span>
+                {!isSubmitting && <span className="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">east</span>}
               </button>
             </div>
           </form>
