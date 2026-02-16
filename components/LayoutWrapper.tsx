@@ -4,6 +4,7 @@ import React from 'react';
 import { usePathname } from 'next/navigation';
 import Navbar from './Navbar';
 import Footer from './Footer';
+import SmoothScroll from './SmoothScroll';
 
 interface LayoutWrapperProps {
   children: React.ReactNode;
@@ -18,9 +19,15 @@ const LayoutWrapper = ({ children, settings, footerData }: LayoutWrapperProps) =
 
   return (
     <>
-      {!isStudio && <Navbar settings={settings} />}
-      {children}
-      {!isStudio && <Footer data={footerData} />}
+      {isStudio ? (
+        children
+      ) : (
+        <SmoothScroll>
+          <Navbar settings={settings} />
+          {children}
+          <Footer data={footerData} />
+        </SmoothScroll>
+      )}
     </>
   );
 };

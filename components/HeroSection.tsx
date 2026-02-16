@@ -38,7 +38,7 @@ const HeroSection = ({ data }: HeroProps) => {
   const current = slides[currentSlide];
  
   return (
-    <header className="relative h-[100dvh] w-full overflow-hidden">
+    <header id="ana-sayfa" className="relative h-[100dvh] w-full overflow-hidden">
       {slides.map((slide, index) => (
         <div 
           key={index}

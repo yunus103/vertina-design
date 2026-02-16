@@ -33,7 +33,13 @@ const LANDING_PAGE_QUERY = `
         gorsel { asset->, altMetin }
       }
     },
-    referanslar,
+    referanslar {
+      ...,
+      liste[] {
+        ...,
+        logo { asset->, altMetin }
+      }
+    },
     iletisim {
       ...,
       gorsel { asset->, altMetin }

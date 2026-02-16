@@ -21,7 +21,7 @@
     }
   }
 
-  --animate-marquee: marquee 25s linear infinite;
+  --animate-marquee: marquee 40s linear infinite;
 }
 
 @layer base {
@@ -68,4 +68,8 @@
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
+}
+
+html {
+  scroll-padding-top: 10px;
 }

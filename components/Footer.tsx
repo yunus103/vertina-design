@@ -88,7 +88,7 @@ const Footer = ({ data }: FooterProps) => {
         <div className="flex flex-col items-center md:items-end gap-6 w-full md:basis-1/3">
           <h4 className="text-[10px] tracking-[0.3em] uppercase font-bold text-white/50">Hızlı Menü</h4>
           <div className="flex flex-col md:flex-row gap-4 md:gap-8 text-xs tracking-widest uppercase text-white/70 font-medium text-center md:text-right">
-            <Link href="/" className="hover:text-white transition-colors">Ana Sayfa</Link>
+            <Link href="#ana-sayfa" className="hover:text-white transition-colors">Ana Sayfa</Link>
             <Link href="#hizmetlerimiz" className="hover:text-white transition-colors">Hizmetlerimiz</Link>
             <Link href="#projeler" className="hover:text-white transition-colors">Projeler</Link>
             <Link href="#contact" className="hover:text-white transition-colors">İletişim</Link>

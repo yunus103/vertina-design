@@ -65,7 +65,7 @@ const Navbar = ({ settings }: NavbarProps) => {
 
       {/* Desktop Menu */}
       <div className={`hidden md:flex gap-10 text-[10px] tracking-[0.2em] uppercase font-medium transition-colors duration-300 ${textClass}`}>
-        <Link href="#" className="hover:text-brandRed transition-colors">Ana Sayfa</Link>
+        <Link href="#ana-sayfa" className="hover:text-brandRed transition-colors">Ana Sayfa</Link>
         <Link href="#hizmetlerimiz" className="hover:text-brandRed transition-colors">Hizmetlerimiz</Link>
         <Link href="#projeler" className="hover:text-brandRed transition-colors">Projeler</Link>
         <Link href="#contact" className="hover:text-brandRed transition-colors">İletişim</Link>
@@ -84,7 +84,7 @@ const Navbar = ({ settings }: NavbarProps) => {
       {/* Mobile Menu Overlay */}
       <div className={`fixed inset-0 h-[100dvh] bg-backgroundLight dark:bg-backgroundDark z-[60] flex flex-col items-center justify-center transition-transform duration-500 ease-in-out ${isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}>
         <div className="flex flex-col gap-8 text-center text-2xl tracking-[0.1em] uppercase font-display font-medium text-primary dark:text-white">
-          <Link href="#" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-brandRed transition-colors">Ana Sayfa</Link>
+          <Link href="#ana-sayfa" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-brandRed transition-colors">Ana Sayfa</Link>
           <Link href="#hizmetlerimiz" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-brandRed transition-colors">Hizmetlerimiz</Link>
           <Link href="#projeler" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-brandRed transition-colors">Projeler</Link>
           <Link href="#contact" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-brandRed transition-colors">İletişim</Link>
