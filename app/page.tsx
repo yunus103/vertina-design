@@ -2,6 +2,7 @@ import { client } from "@/sanity/lib/client";
 import HeroSection from "@/components/HeroSection";
 import AboutSection from "@/components/AboutSection";
 import ServicesSection from "@/components/ServicesSection";
+import ProcessSection from "@/components/ProcessSection";
 import ProjectsSection from "@/components/ProjectsSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import ContactSection from "@/components/ContactSection";
@@ -22,6 +23,13 @@ const LANDING_PAGE_QUERY = `
     hizmetlerimiz {
       ...,
       liste[] {
+        ...,
+        gorsel { asset->, altMetin }
+      }
+    },
+    surec {
+      ...,
+      adimlar[] {
         ...,
         gorsel { asset->, altMetin }
       }
@@ -73,6 +81,7 @@ export default async function Home() {
       <HeroSection data={data.hero} />
       {/* <AboutSection data={data.hakkimizda} /> */}
       <ServicesSection data={data.hizmetlerimiz} />
+      <ProcessSection data={data.surec} />
       <ProjectsSection data={data.projeler} />
       <TestimonialsSection data={data.referanslar} />
       <ContactSection data={data.iletisim} />

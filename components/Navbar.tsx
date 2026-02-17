@@ -68,7 +68,7 @@ const Navbar = ({ settings }: NavbarProps) => {
         <Link href="#ana-sayfa" className="hover:text-brandRed transition-colors">Ana Sayfa</Link>
         <Link href="#hizmetlerimiz" className="hover:text-brandRed transition-colors">Hizmetlerimiz</Link>
         <Link href="#projeler" className="hover:text-brandRed transition-colors">Projeler</Link>
-        <Link href="#contact" className="hover:text-brandRed transition-colors">İletişim</Link>
+        <Link href="#iletisim" className="hover:text-brandRed transition-colors">İletişim</Link>
       </div>
 
       {/* Mobile Menu Button */}
@@ -87,7 +87,7 @@ const Navbar = ({ settings }: NavbarProps) => {
           <Link href="#ana-sayfa" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-brandRed transition-colors">Ana Sayfa</Link>
           <Link href="#hizmetlerimiz" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-brandRed transition-colors">Hizmetlerimiz</Link>
           <Link href="#projeler" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-brandRed transition-colors">Projeler</Link>
-          <Link href="#contact" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-brandRed transition-colors">İletişim</Link>
+          <Link href="#iletisim" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-brandRed transition-colors">İletişim</Link>
         </div>
       </div>
     </nav>

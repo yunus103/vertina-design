@@ -29,6 +29,9 @@ const SETTINGS_QUERY = `
       firmaAdi,
       logo { asset->, altMetin }
     },
+    iletisim {
+      telefon
+    },
     footer {
       logo { asset->, altMetin },
       aciklama,
@@ -67,11 +70,13 @@ export default async function RootLayout({
 }>) {
   let settings = null;
   let footerData = null;
+  let contactNumber = null;
   
   try {
     const data = await client.fetch(SETTINGS_QUERY);
     settings = data?.ayarlar;
     footerData = data?.footer;
+    contactNumber = data?.iletisim?.telefon;
   } catch (error) {
     console.error("Layout settings fetch error:", error);
   }
@@ -89,7 +94,7 @@ export default async function RootLayout({
       <body
         className={`${inter.variable} ${playfair.variable} antialiased font-body bg-backgroundLight dark:bg-backgroundDark text-primary dark:text-gray-200 transition-colors duration-300 overflow-x-hidden`}
       >
-        <LayoutWrapper settings={settings} footerData={footerData}>
+        <LayoutWrapper settings={settings} footerData={footerData} contactNumber={contactNumber}>
           {children}
         </LayoutWrapper>
       </body>

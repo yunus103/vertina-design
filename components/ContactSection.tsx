@@ -53,7 +53,7 @@ const ContactSection = ({ data }: ContactProps) => {
   };
 
   return (
-    <section id="contact" className="grid grid-cols-1 md:grid-cols-2 min-h-[auto] md:min-h-[500px] scroll-mt-20">
+    <section id="iletisim" className="grid grid-cols-1 md:grid-cols-2 min-h-[auto] md:min-h-[500px] scroll-mt-20">
       <div className="relative overflow-hidden flex flex-col justify-center px-6 py-12 md:px-20 md:py-16">
         {data.gorsel && (
              <Image

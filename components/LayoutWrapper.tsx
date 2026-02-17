@@ -8,13 +8,16 @@ import SmoothScroll from './SmoothScroll';
 
 import { Toaster } from 'sonner';
 
+import WhatsAppButton from './WhatsAppButton';
+
 interface LayoutWrapperProps {
   children: React.ReactNode;
   settings?: any;
   footerData?: any;
+  contactNumber?: string;
 }
 
-const LayoutWrapper = ({ children, settings, footerData }: LayoutWrapperProps) => {
+const LayoutWrapper = ({ children, settings, footerData, contactNumber }: LayoutWrapperProps) => {
   const pathname = usePathname();
   // Check if we are in the studio
   const isStudio = pathname?.startsWith('/studio');
@@ -29,6 +32,7 @@ const LayoutWrapper = ({ children, settings, footerData }: LayoutWrapperProps) =
           <Navbar settings={settings} />
           {children}
           <Footer data={footerData} />
+          <WhatsAppButton phoneNumber={contactNumber} />
         </SmoothScroll>
       )}
     </>

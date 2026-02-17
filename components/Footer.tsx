@@ -91,7 +91,7 @@ const Footer = ({ data }: FooterProps) => {
             <Link href="#ana-sayfa" className="hover:text-white transition-colors">Ana Sayfa</Link>
             <Link href="#hizmetlerimiz" className="hover:text-white transition-colors">Hizmetlerimiz</Link>
             <Link href="#projeler" className="hover:text-white transition-colors">Projeler</Link>
-            <Link href="#contact" className="hover:text-white transition-colors">İletişim</Link>
+            <Link href="#iletisim" className="hover:text-white transition-colors">İletişim</Link>
           </div>
         </div>
 
