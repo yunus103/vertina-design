@@ -53,8 +53,8 @@ const HeroSection = ({ data }: HeroProps) => {
               priority={index === 0}
             />
           )}
-          {/* Overlay for better text readability */}
-          <div className="absolute inset-0 bg-black/40 z-[1]"></div>
+          {/* Overlay for better text readability - using a very subtle gradient to keep the center bright while ensuring UI visibility */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/40 z-[1]"></div>
           
           <div className="relative z-10 h-full flex flex-col justify-center px-6 md:px-24">
             <h1 className="font-display text-4xl md:text-8xl text-white max-w-4xl leading-[1.1] uppercase tracking-tight drop-shadow-2xl">
@@ -72,7 +72,7 @@ const HeroSection = ({ data }: HeroProps) => {
       <div className="absolute bottom-6 left-6 right-6 md:bottom-12 md:left-24 md:right-24 flex flex-col md:flex-row justify-between items-start md:items-end border-t border-white/20 pt-6 md:pt-8 z-10 gap-6 md:gap-0">
         <div className="max-w-md">
           {current.etiket && <h3 className="text-white font-display text-lg md:text-xl mb-2">{current.etiket}</h3>}
-          <p className="text-white/70 text-xs md:text-sm leading-relaxed line-clamp-3 md:line-clamp-none">
+          <p className="text-white/90 text-xs md:text-sm leading-relaxed line-clamp-3 md:line-clamp-none drop-shadow-md">
              {current.aciklama || "Keeping it fresh. Be the first to browse the newest creator launches. New drops daily."}
           </p>
         </div>
